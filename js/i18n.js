@@ -453,6 +453,7 @@
       if (metaKw) metaKw.setAttribute('content', t(locale, keywordsKey));
     }
 
+    // 更新所有数据属性
     document.querySelectorAll('[data-i18n]').forEach(function (el) {
       var key = el.getAttribute('data-i18n');
       if (!key) return;
@@ -474,18 +475,40 @@
       if (val) el.setAttribute('alt', val);
     });
 
+    // 更新语言切换按钮的显示
+    document.querySelectorAll('.lang-switch-btn').forEach(function (btn) {
+      var currentLang = getLocale();
+      if (currentLang === 'zh') {
+        btn.textContent = 'English';
+      } else {
+        btn.textContent = '中文';
+      }
+    });
+
     applyAppStoreLinks(locale);
     updateLangButtons(locale);
   }
 
   function init() {
     applyI18n();
-    document.querySelectorAll('[data-set-lang]').forEach(function (btn) {
+
+    // 处理语言切换按钮点击
+    document.querySelectorAll('.lang-switch-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var lang = btn.getAttribute('data-set-lang');
-        if (lang === 'zh' || lang === 'en') {
-          setLocale(lang);
-          applyI18n();
+        var currentLang = getLocale();
+        var newLang = currentLang === 'zh' ? 'en' : 'zh';
+
+        setLocale(newLang);
+        applyI18n();
+      });
+    });
+
+    // 键盘支持
+    document.querySelectorAll('.lang-switch-btn').forEach(function (btn) {
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
         }
       });
     });
