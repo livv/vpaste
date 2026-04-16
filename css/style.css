@@ -53,6 +53,44 @@ body {
     justify-content: space-between;
     align-items: center;
     height: 56px;
+    gap: 16px;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.lang-switch {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 2px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.lang-btn {
+    border: none;
+    background: transparent;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: background 0.2s, color 0.2s;
+}
+
+.lang-btn:hover {
+    color: var(--text-color);
+}
+
+.lang-btn.active {
+    background: var(--primary-color);
+    color: #fff;
 }
 
 .logo {
@@ -372,6 +410,10 @@ body {
 @media (max-width: 768px) {
     .nav-links {
         display: none;
+    }
+
+    .nav-actions {
+        gap: 0;
     }
 
     .hero-content {
